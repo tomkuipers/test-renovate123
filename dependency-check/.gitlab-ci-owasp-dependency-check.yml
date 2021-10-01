@@ -1,0 +1,22 @@
+dependency-check:
+  image: $CA_GENERIC_IMAGE_MVN_JAVA
+  stage: test
+  variables:
+    CA_DEPENDENCY_CHECK_CONFIG: ""
+  before_script:
+    - export MVN_DEPENDENCY_CHECK_VERSION=6.3.1
+  script:
+    - mvn $MAVEN_CLI_OPTS org.owasp:dependency-check-maven:$MVN_DEPENDENCY_CHECK_VERSION:aggregate $CA_DEPENDENCY_CHECK_CONFIG -Dformat=ALL -DcveUrlModified=https://nvd-mirror.build.icts.education/nvdcve-1.1-modified.json.gz -DcveUrlBase=https://nvd-mirror.build.icts.education/nvdcve-1.1-%d.json.gz
+  artifacts:
+    when: always
+    expire_in: 2 weeks
+    reports:
+      junit: target/dependency-check-junit.xml
+    paths:
+      - target/dependency-check-junit.xml
+      - target/dependency-check-report.csv
+      - target/dependency-check-report.html
+      - target/dependency-check-report.json
+      - target/dependency-check-report.xml
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
