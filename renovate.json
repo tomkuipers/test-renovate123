@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":disableDependencyDashboard"
+  ],
+  "gitlabci": {
+    "fileMatch": [
+      "\\.gitlab-ci[^/]*\\.yml$"
+    ]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["\\.gitlab-ci-owasp-dependency-check.yml$"],
+      "matchStrings": ["export MVN_DEPENDENCY_CHECK_VERSION=(?<currentValue>.*?)\n"],
+      "depNameTemplate": "org.owasp:dependency-check-maven",
+      "datasourceTemplate": "maven"
+    }
+  ]
+}
