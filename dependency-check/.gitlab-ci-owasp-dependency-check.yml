@@ -4,7 +4,7 @@ dependency-check:
   variables:
     CA_DEPENDENCY_CHECK_CONFIG: ""
   before_script:
-    - export MVN_DEPENDENCY_CHECK_VERSION=6.3.1
+    - export MVN_DEPENDENCY_CHECK_VERSION=6.3.2
   script:
     - mvn $MAVEN_CLI_OPTS org.owasp:dependency-check-maven:$MVN_DEPENDENCY_CHECK_VERSION:aggregate $CA_DEPENDENCY_CHECK_CONFIG -Dformat=ALL -DcveUrlModified=https://nvd-mirror.build.icts.education/nvdcve-1.1-modified.json.gz -DcveUrlBase=https://nvd-mirror.build.icts.education/nvdcve-1.1-%d.json.gz
   artifacts:
